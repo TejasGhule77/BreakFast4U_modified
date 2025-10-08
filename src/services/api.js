@@ -193,4 +193,44 @@ export const api = {
 
     return data;
   },
+
+  async getStores(filters = {}) {
+    const queryParams = new URLSearchParams(filters).toString();
+    const url = queryParams ? `${API_URL}/stores?${queryParams}` : `${API_URL}/stores`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to fetch stores');
+    }
+
+    return data;
+  },
+
+  async getPublicMeals(filters = {}) {
+    const queryParams = new URLSearchParams(filters).toString();
+    const url = queryParams ? `${API_URL}/meals?${queryParams}` : `${API_URL}/meals`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Failed to fetch meals');
+    }
+
+    return data;
+  },
 };
